@@ -132,7 +132,7 @@ class NeroClient(QMainWindow):
         s_lay.addStretch()
         prof = QFrame(); prof.setObjectName("ProfileBox"); pl = QHBoxLayout(prof)
         av = QFrame(); av.setFixedSize(30, 30); av.setStyleSheet("background:#222; border-radius:15px; border:none;")
-        info = QVBoxLayout(); u = QLabel("flaxypasha"); u.setStyleSheet("color:white; font-weight:bold; font-size:10px;"); st = QLabel("● Active"); st.setStyleSheet("color:#00ff88; font-size:8px;")
+        info = QVBoxLayout(); u = QLabel("User"); u.setStyleSheet("color:white; font-weight:bold; font-size:10px;"); st = QLabel("● Active"); st.setStyleSheet("color:#00ff88; font-size:8px;")
         info.addWidget(u); info.addWidget(st); info.setSpacing(0); pl.addWidget(av); pl.addLayout(info); s_lay.addWidget(prof)
         content = QFrame(); content.setObjectName("Content"); c_lay = QVBoxLayout(content); top = QHBoxLayout(); top.addStretch()
         m_b = QPushButton("—"); m_b.setObjectName("TBtn"); m_b.clicked.connect(self.showMinimized)
@@ -182,4 +182,5 @@ if __name__ == "__main__":
     app = QApplication(sys.argv); window = NeroClient()
     comm.toggle_visibility.connect(lambda: window.show() if window.isHidden() else window.hide())
     threading.Thread(target=lambda: keyboard.Listener(on_press=on_key_press).start(), daemon=True).start()
+
     window.show(); sys.exit(app.exec_())
