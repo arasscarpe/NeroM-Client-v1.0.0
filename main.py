@@ -27,6 +27,7 @@ THEME_MAP = {
 MACRO_DATA = {
     "Slow Hit": {"bind": "v", "active": False, "delay": 120, "slots": ["1", "2", "3"]},
     "Auto Crystal": {"bind": "x", "active": False, "delay": 50, "slots": ["2", "3", "1"]},
+    "Hit Crystal": {"bind": "y", "active": False, "delay": 60, "slots": ["5", "6", ""]},  # YENİ EKLENDİ
     "Fast XP": {"bind": "z", "active": False, "delay": 40, "slots": ["9", "", ""]},
     "Single Anchor": {"bind": "b", "active": False, "delay": 80, "slots": ["5", "6", "1"]},
     "Double Anchor": {"bind": "n", "active": False, "delay": 60, "slots": ["5", "6", "1"]},
@@ -78,6 +79,15 @@ def run_macro(name):
             action_right(0.06)
             time.sleep(delay)
             action_left(0.04)
+
+        # --- YENİ EKLENEN KISIM BAŞLANGIÇ ---
+        elif name == "Hit Crystal":
+            pyautogui.press(cfg["slots"][0]) # Obsidyen slotu
+            action_right(0.05)               # Obsidyen koy
+            time.sleep(delay)                # Bekle
+            pyautogui.press(cfg["slots"][1]) # Kristal slotu
+            action_right(0.05)               # Kristal koy
+        # --- YENİ EKLENEN KISIM BİTİŞ ---
 
         elif name == "Slow Hit":
             pyautogui.press(cfg["slots"][0])
@@ -182,7 +192,18 @@ class NeroClient(QMainWindow):
         layout.addWidget(sidebar); layout.addWidget(content); comm.theme_changed.connect(self.apply_styles); self.apply_styles()
 
     def init_pages(self):
-        p1 = self.make_page([("Slow Hit", "SH", "Sword+Obsi+Crys", ["Sword", "Obsi", "Crys"]), ("Auto Crystal", "AC", "Right+Left loop", ["Obsi", "Crys", "Totem"]), ("Fast XP", "XP", "Fast Bottle", ["XP Slot", "", ""]), ("Single Anchor", "SA", "1 Cycle", ["Anc", "Glow", "Totem"]), ("Double Anchor", "DA", "2 Cycle", ["Anc", "Glow", "Totem"]), ("Triple Anchor", "TA", "3 Cycle", ["Anc", "Glow", "Totem"]), ("Quadra Anchor", "QA", "4 Cycle", ["Anc", "Glow", "Totem"]), ("Auto Offhand", "AO", "Instant Swap", ["Slot", "", ""])])
+        # Hit Crystal eklendi
+        p1 = self.make_page([
+            ("Slow Hit", "SH", "Sword+Obsi+Crys", ["Sword", "Obsi", "Crys"]), 
+            ("Auto Crystal", "AC", "Right+Left loop", ["Obsi", "Crys", "Totem"]), 
+            ("Hit Crystal", "HC", "Obsi -> Crys Place", ["Obsi", "Crys", ""]), 
+            ("Fast XP", "XP", "Fast Bottle", ["XP Slot", "", ""]), 
+            ("Single Anchor", "SA", "1 Cycle", ["Anc", "Glow", "Totem"]), 
+            ("Double Anchor", "DA", "2 Cycle", ["Anc", "Glow", "Totem"]), 
+            ("Triple Anchor", "TA", "3 Cycle", ["Anc", "Glow", "Totem"]), 
+            ("Quadra Anchor", "QA", "4 Cycle", ["Anc", "Glow", "Totem"]), 
+            ("Auto Offhand", "AO", "Instant Swap", ["Slot", "", ""])
+        ])
         p2 = self.make_page([("Shield Break", "SB", "Axe combo", ["Axe", "Sword", ""])])
         p3 = self.make_page([("Stun Slam", "SS", "Shield bypass", ["Axe", "Mace", ""]), ("Elytra Swap", "ES", "Instant air", ["Chest", "", ""])])
         p4 = self.make_page_theme()
